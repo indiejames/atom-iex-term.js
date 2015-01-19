@@ -1120,9 +1120,24 @@ Terminal.prototype.bindMouse = function() {
     if (self.mouseEvents) return;
     if (self.applicationKeypad) return;
     if (ev.type === 'DOMMouseScroll') {
-      self.scrollDisp(ev.detail < 0 ? -5 : 5);
+     var offset = ev.detail / 3;
+     if (offset < -5) {
+	     offset = -5;
+     }
+     if (offset > 5) {
+	     offset = 5;
+     }
+
+      self.scrollDisp(offset);
     } else {
-      self.scrollDisp(ev.wheelDeltaY > 0 ? -5 : 5);
+	    var offset = ev.wheelDeltaY / 3;
+	    if (offset < -5) {
+		    offset = -5;
+	    }
+	    if (offset > 5) {
+		    offset = 5;
+	    }
+      self.scrollDisp(-offset);
     }
     return cancel(ev);
   });
